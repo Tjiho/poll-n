@@ -30,3 +30,10 @@ Debian / Open-suse leap
 cd polln
 python3 manage.py runserver
 ```
+
+Update css
+----------
+```
+sudo npm install stylus -g
+stylus -w themes/main.styl -o polln/webApp/static/webApp/style.css
+```
