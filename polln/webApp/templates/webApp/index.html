@@ -1,4 +1,56 @@
 {% extends 'webApp/layout.html' %}
 {% block content %}
-hello !
+<main id="index-main">
+    <h1>Poll-n</h1>
+    <div id="main-description">
+        Create poll for everybody
+        <br/>
+        <img src="/static/webApp/imgs/logo-tmp.png"/>
+
+    </div>
+    
+    <div class="content">
+    <section>
+        <div  class="icon-button arel center">
+                <div class="icone big-icone"></div>
+        </div>
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <div class="icon-button arel center">
+               
+                <input type="submit" value="Login with AREL" class="center button">
+            </div>
+            
+        </form>
+    </section>
+
+    <div id="or-login">
+        or
+    </div>
+
+    <section>
+        <div id="external-login">
+            <div class="github icon-button">
+                <div class="icone small-icone"></div>
+                <a href="" class="button center">Login with GITHUB</a>
+            </div>
+            <div class="air-eisti icon-button">
+                <div class="icone small-icone"></div>
+                <a href="" class="button center">Login with AIR-EISTI</a>
+            </div>
+            <div class="tumblr icon-button">
+                <div class="icone small-icone"></div>
+                <a href="" class="button center">Login with TUMBLR</a>
+            </div>
+            <div class="icon-button center">
+                <a class="button button-big" href="">Just create a poll</a>
+            </div>
+        
+    </section>
+    </div>
+</main>
+
 {% endblock %}
