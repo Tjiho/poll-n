@@ -14,13 +14,14 @@
         <div  class="icon-button arel center">
                 <div class="icone big-icone"></div>
         </div>
-        <form>
+        <form action="/" method="POST">
+            {% csrf_token %}
             <label for="username">Username</label>
-            <input type="text" id="username" name="username">
+            {{ form.username }}
             <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            {{ form.password }}
+
             <div class="icon-button arel center">
-               
                 <input type="submit" value="Login with AREL" class="center button">
             </div>
             

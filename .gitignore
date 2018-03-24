@@ -4,3 +4,4 @@ db.sqlite
 .directory
 *~
 .vscode/
+db.sqlite3
