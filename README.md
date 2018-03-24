@@ -1,6 +1,14 @@
 Poll-n
 ======
 
+All the code is under the Mozilla Public License Version 2.0.
+
+Fonts are under there own license.
+
+The image name "draw.png" is the property of "Krystalia" : https://krysthalia.deviantart.com/.
+
+Other images are also under the Mozilla Public License Version 2.0.
+
 install
 -------
 
@@ -37,3 +45,4 @@ Update css
 sudo npm install stylus -g
 stylus -w themes/main.styl -o polln/webApp/static/webApp/style.css
 ```
+
