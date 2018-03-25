@@ -27,19 +27,33 @@ html {
   font-size: 14px;
 }
 body {
-  background-color: rgba(240,240,245,0.9);
   display: flex;
   flex-direction: column;
 }
 main {
   width: 100%;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(240,240,245,0.9);
 }
 footer {
   background-color: rgba(0,0,0,0.5);
   padding: 15px;
   color: #fff;
   font-size: 1.1em;
+}
+#content-scretch {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  margin: 0 50px;
+  justify-content: space-around;
+}
+.container {
+  margin: 20px;
+  padding: 10px;
+  max-width: 1000px;
 }
 h2,
 h1,
@@ -62,36 +76,6 @@ h1 {
 }
 #main-description img {
   height: 120px;
-}
-label {
-  font-family: renogare;
-}
-input[type=button],
-input[type=submit],
-.button {
-  display: inline-block;
-  text-decoration: none;
-  width: 200px;
-  background-color: #000;
-  margin: 5px 0px;
-  padding: 10px;
-  text-align: center;
-  border: none;
-/*background: linear-gradient(to left,#08D0EA,#08AEEA); blue little gradient*/
-  background: linear-gradient(to left, #97e56a, #1dae3b);
-  color: #000 !important;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
-  font-size: 1.2em;
-}
-.button.button-big {
-  font-size: 1.2em;
-  width: 260px;
-  padding: 20px;
-  font-weight: 800;
-  margin-top: 25px;
-}
-input[type=submit] {
-  width: 220px;
 }
 .center {
   text-align: center;
@@ -131,6 +115,82 @@ input[type=submit] {
   background: none;
   margin: 14px;
 }
+label {
+  font-family: renogare;
+}
+input[type=submit],
+.button {
+  display: inline-block;
+  text-decoration: none;
+  width: 200px;
+  background-color: #000;
+  margin: 5px 0px;
+  padding: 10px;
+  text-align: center;
+  border: none;
+/*background: linear-gradient(to left,#08D0EA,#08AEEA); blue little gradient*/
+  background: linear-gradient(to left, #97e56a, #1dae3b);
+  color: #000 !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+  font-size: 1.2em;
+}
+.button.button-big {
+  font-size: 1.2em;
+  width: 260px;
+  padding: 20px;
+  font-weight: 800;
+  margin-top: 25px;
+}
+input[type=submit] {
+  width: 220px;
+  margin-top: 10px;
+}
+input[type=text],
+input[type=password] {
+  display: block;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  border: 1px solid #787878;
+  background-color: rgba(255,255,255,0.5);
+  width: 100%;
+  margin: 5px 0px 20px 0px;
+  color: #000;
+  height: 35px;
+  border-image-source: linear-gradient(to left, #f6c236, #f68c36);
+  border-image-slice: 1;
+  border-image-width: 1;
+  border-image-repeat: round;
+  border-image-outset: 1;
+}
+textarea {
+  display: block;
+  width: 100%;
+  background-color: rgba(255,255,255,0.5);
+  border: 1px solid #787878;
+  height: 60px;
+}
+input[type=radio] {
+  display: none;
+}
+input[type=radio] + label {
+  height: 25px;
+  width: 25px;
+  border: 2px solid #fff;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+input[type=radio]:checked + label {
+  background-color: #fff;
+}
+input[type=radio] + label.option {
+  border-color: #000;
+}
+input[type=radio]:checked + label.option {
+  background-color: #000;
+}
 #index-main .content {
   display: flex;
   align-items: center;
@@ -160,14 +220,10 @@ input[type=submit] {
 }
 #index-main input[type=text],
 #index-main input[type=password] {
-  display: block;
-  background-color: transparent;
-  box-shadow: none;
   border: none;
   border-bottom: 1px solid #787878;
-  width: 100%;
   margin: 20px 0px;
-  color: #000;
+  background-color: transparent;
 }
 #index-main label {
   display: block;
@@ -177,31 +233,155 @@ input[type=submit] {
 #index-main #external-login {
   margin-top: 10px;
 }
-#index-main .air-eisti .button {
+#poll-main {
+  background-color: #fff;
+}
+#poll-main .link {
+  display: flex;
+  justify-content: center;
+}
+#poll-main .link div {
+  margin: 10px;
+  font-size: 1.1em;
+}
+#poll-main section {
+  flex: 1;
+}
+#poll-main section input[type=text] {
+  height: 50px;
+  margin: 0;
+  padding: 0 5px;
+  background-color: #fff;
+  border: 1px solid #787878;
+  display: inline-block;
+  width: calc(100% - 74px);
+  color: #000;
+}
+#poll-main section input[type=button] {
+  width: 52px;
+  height: 52px;
+  border: 1px solid #787878;
+  display: inline-block;
+  background-color: #fff;
+  color: #000;
+  margin-left: 10px;
+}
+#poll-main section .list-users span {
+  color: #fff;
+  margin: 0 15px 8px 0px;
+  width: 70px;
+  display: inline-block;
+  background-color: #8a2be2;
+  padding: 5px;
+/*background: linear-gradient(to top left, #D9AFD9, #97D9E1);*/
+  border-radius: 2px;
+}
+#poll-main aside {
+  width: 400px;
+}
+#poll-main aside .line {
+  padding: 10px 3px;
+  font-size: 1.1em;
+}
+#poll-main aside h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+#poll-main .description {
+  line-height: 1.5em;
+  color: #323232;
+  margin: 10px 0;
+  text-align: justify;
+  min-height: 50px;
+}
+#poll-main .line-answer {
+  background-color: #e6e6e6;
+  margin: 3px 0;
+  position: relative;
+  z-index: 2;
+  height: 50px;
+}
+#poll-main .line-answer .remplissage {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  z-index: 0;
+}
+#poll-main .line-answer .remplissage-big {
+  width: 75%;
+  background: linear-gradient(to left, #97e56a, #1dae3b);
+}
+#poll-main .line-answer .remplissage-middle {
+  width: 45%;
+  background: linear-gradient(to left, #80c1fe, #5268ff);
+}
+#poll-main .line-answer .remplissage-low {
+  background: linear-gradient(to left, #f0c19e, #ff5d5d);
+  width: 15%;
+}
+#poll-main .line-answer .content {
+  z-index: 2;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  padding: 0 10px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 800;
+}
+#main-poll-pseudo form {
+  width: 400px;
+  margin: auto;
+  padding: 20px;
+  margin-top: 50px;
+}
+#main-poll-pseudo label {
+  font-size: 1.2em;
+}
+#main-poll-pseudo input[type=submit] {
+  margin-top: 10px;
+}
+#main-poll-pseudo #or {
+  font-family: renogare;
+  font-family: renogare;
+  font-size: 1.5em;
+  padding: 40px 0 0px 0;
+  font-weight: 800;
+}
+#main-poll-pseudo #login {
+  padding: 10px;
+}
+#main-poll-pseudo #login a {
+  background: linear-gradient(to left, #a199b6, #8070ae);
+  color: #fff !important;
+}
+.air-eisti .button {
   background: linear-gradient(to left, #08eae2, #08aeea);
 }
-#index-main .air-eisti .icone {
+.air-eisti .icone {
   background-image: url("/static/webApp/imgs/air.png");
   border-image-source: linear-gradient(to left, #08eae2, #08aeea);
 }
-#index-main .arel .button {
+.arel .button {
   background: linear-gradient(to left, #a199b6, #8070ae);
 }
-#index-main .arel .icone {
+.arel .icone {
   background-image: url("/static/webApp/imgs/arel.svg");
   border-image-source: linear-gradient(to left, #a199b6, #8070ae);
 }
-#index-main .github .button {
+.github .button {
   background: linear-gradient(to left, #f6c236, #f68c36);
 }
-#index-main .github .icone {
+.github .icone {
   background-image: url("/static/webApp/imgs/github.png");
   border-image-source: linear-gradient(to left, #f6c236, #f68c36);
 }
-#index-main .tumblr .button {
+.tumblr .button {
   background: linear-gradient(to left, #f4b0b0, #b86de3);
 }
-#index-main .tumblr .icone {
+.tumblr .icone {
   background-image: url("/static/webApp/imgs/tumblr.png");
   border-image-source: linear-gradient(to left, #f4b0b0, #b86de3);
 }

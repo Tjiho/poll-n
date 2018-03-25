@@ -1,0 +1,76 @@
+label
+    font-family renogare
+
+input[type=submit],.button
+    display inline-block
+    text-decoration none
+    width 200px
+    background-color black
+    margin 5px 0px
+    padding 10px
+    text-align center
+    border none
+    /*background: linear-gradient(to left,#08D0EA,#08AEEA); blue little gradient*/
+    background: default-gradient
+    color:black !important;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+    font-size: 1.2em;
+
+.button.button-big
+    font-size: 1.2em;
+    width: 260px;
+    padding: 20px;
+    font-weight 800
+    margin-top 25px
+
+
+
+input[type=submit]
+    width 220px
+    margin-top:10px
+
+input[type=text],input[type=password]
+    display: block;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    border: 1px solid light;
+    background-color: rgba(255,255,255,0.5);
+    width: 100%;
+    margin 5px 0px 20px 0px
+    color:black
+    height 35px
+    border-image-source: linear-gradient(to left, #f6c236, #f68c36);
+    border-image-slice: 1;
+    border-image-width: 1;
+    border-image-repeat: round;
+    border-image-outset: 1;
+
+
+textarea
+    display block
+    width 100%
+    background-color: rgba(255,255,255,0.5);
+    border: 1px solid light;
+    height 60px;
+
+
+input[type=radio]
+        display none
+
+input[type=radio] + label
+    height 25px
+    width 25px
+    border 2px solid white
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 20px;
+    margin-right 10px;
+
+input[type=radio]:checked + label
+    background-color white
+
+input[type=radio] + label.option
+    border-color black
+input[type=radio]:checked + label.option
+    background-color black

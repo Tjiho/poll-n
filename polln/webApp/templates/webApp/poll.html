@@ -1,0 +1,36 @@
+{% extends 'webApp/layout.html' %}
+{% block content %}
+<main id="poll-main">
+    <h1>Poll-n</h1>
+    <div id="main-description">
+        Create poll for everybody
+        <br/>
+        <img src="/static/webApp/imgs/logo-tmp.png"/>
+
+    </div> 
+    {%if admin%}
+    <div class="link">
+        <div><label>Lien :</label> http://localhost:8000/poll/{{question.token}}/</div>
+        <div><label >Lien admin:</label> http://localhost:8000/poll/{{question.token_admin}}/</div>
+    </div>
+    {%endif%}
+    <div id="content-scretch">
+        <section class="container">
+            <h2>{{question.title}}</h2>
+            <div class="description">{{question.description}}</div>
+            
+            <input type=text placeholder="add answer"/><input type="button" value="+">
+            
+        </section>
+        <aside class="container">
+            <h2>Options</h2>
+                <div class="line"><input type="radio"><label class="radio option"></label>Anonymous users can add answer</div>
+                <div class="line"><input type="radio" checked><label class="radio option"></label>Anonymous users can answer</div>
+                <div class="line"><input type="radio"><label class="radio option"></label>Anonymous users can delete anonymous choice</div>                
+            <h2>Stats</h2>
+                <div class="line">Nombre de votants : 7</div>
+                <div class="line">Best : 5/7</div>
+        </aside>
+    </div>
+</main>
+{% endblock %}

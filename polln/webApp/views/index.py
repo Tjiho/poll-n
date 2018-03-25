@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from webApp.utils.arel import Arel
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 class Index(View):
     html = 'webApp/index.html'
@@ -14,7 +15,7 @@ class Index(View):
         Renvoie la page d'Inscription au chargement de la page
     """
     def get(self, request, *args, **kwargs):
-        if('username' in request.session):
+        if(request.user.is_authenticated):
             return HttpResponseRedirect(reverse('home'))
         else:
             form = LoginForm()
@@ -39,8 +40,9 @@ class Index(View):
                 '''
                 if not User.objects.filter(username=username).exists():
                     user = User.objects.create_user(username=username,password='')
-                
-                request.session['username'] = username
+                else:
+                    user = User.objects.filter(username=username).first()
+                login(request, user)
                 return HttpResponseRedirect(reverse('home'))
         error = "username or password incorrect"
         return render(request, self.html, locals())

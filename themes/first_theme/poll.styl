@@ -1,0 +1,101 @@
+#poll-main
+    background-color white
+    .link
+        display flex
+        justify-content:center
+        div
+            margin 10px
+            font-size 1.1em
+    section
+        flex 1
+
+        input[type=text]
+            height: 50px;
+            margin: 0;
+            padding: 0 5px;
+            background-color: white;
+            border: 1px solid light;
+            display: inline-block;
+            width: calc( 100% - 74px);
+            color black
+
+        input[type=button]
+            width 52px
+            height 52px
+            border:1px solid light
+            display: inline-block;
+            background-color: white;
+            color: black;
+            margin-left: 10px;
+
+        .list-users 
+            span
+                color white
+                margin 0 15px 8px 0px
+                width 70px
+                display inline-block
+                background-color blueviolet
+                padding 5px
+                /*background: linear-gradient(to top left, #D9AFD9, #97D9E1);*/
+                border-radius 2px
+                
+    aside
+        width 400px
+
+        .line
+            padding 10px 3px
+            font-size 1.1em
+        
+        h2
+            margin-top 20px
+            margin-bottom 10px
+
+    .description
+        line-height: 1.5em;
+        color: rgb(50,50,50);
+        margin: 10px 0;
+        text-align: justify;
+        min-height: 50px;
+
+    .line-answer
+        background-color: rgb(230,230,230);
+        
+        margin 3px 0
+        position relative
+        z-index 2
+        height 50px
+
+        .remplissage
+            position absolute
+            left 0px
+            top 0px
+            height 100%
+            z-index 0
+
+        .remplissage-big
+            width 75%
+            background: linear-gradient(to left, #97e56a, #1dae3b);
+
+        .remplissage-middle
+            width 45%
+            background: linear-gradient(to left,#80C1FE, #5268FF);
+            
+
+        .remplissage-low
+            background: linear-gradient(to left,#F0C19E, #FF5D5D);
+            width 15%
+
+        
+        .content
+            z-index 2
+            position absolute
+            left 0px
+            top 0px
+            padding:0 10px;
+            width 100%
+            top: 50%;
+            transform:translateY(-50%);
+            font-weight 800
+
+    
+
