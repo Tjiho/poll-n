@@ -16,21 +16,31 @@
     {%endif%}
     <div id="content-scretch">
         <section class="container">
-            <h2>{{question.title}}</h2>
-            <div class="description">{{question.description}}</div>
-            
-            <input type=text placeholder="add answer"/><input type="button" value="+">
+            <h2 id="title">{{question.title}}</h2>
+            <div id="description">{{question.description}}</div>
+            <div id="list-answer">
+            {% for answer in list_answer %}
+                <div class="line-answer">
+                    <div class="remplissage remplissage-middle"></div>
+                    <div class="content"><input type="checkbox" id='answer{{answer.pk}}radio'><label for='answer{{answer.pk}}radio' class="radio"></label>{{answer.title}}</div>
+                </div>
+                <div class="list-users"></div>
+            {% endfor %}
+            </div>
+            <input type=text placeholder="add answer" id="answer-input"/><input type="button" value="+" id="answer-submit">
             
         </section>
         <aside class="container">
             <h2>Options</h2>
-                <div class="line"><input type="radio"><label class="radio option"></label>Anonymous users can add answer</div>
-                <div class="line"><input type="radio" checked><label class="radio option"></label>Anonymous users can answer</div>
-                <div class="line"><input type="radio"><label class="radio option"></label>Anonymous users can delete anonymous choice</div>                
+                <div class="line"><input type="checkbox"><label class="radio option"></label>Anonymous users can add answer</div>
+                <div class="line"><input type="checkbox" checked><label class="radio option"></label>Anonymous users can answer</div>
+                <div class="line"><input type="checkbox"><label class="radio option"></label>Anonymous users can delete anonymous choice</div>                
             <h2>Stats</h2>
                 <div class="line">Nombre de votants : 7</div>
                 <div class="line">Best : 5/7</div>
         </aside>
     </div>
+    <script>var poll_token = "{{token}}"; var is_admin = ("{{admin}}" == "True") </script>
+    <script src="/static/webApp/js/webSocket-poll.js"></script>
 </main>
 {% endblock %}

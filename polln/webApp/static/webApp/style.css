@@ -170,10 +170,10 @@ textarea {
   border: 1px solid #787878;
   height: 60px;
 }
-input[type=radio] {
+input[type=checkbox] {
   display: none;
 }
-input[type=radio] + label {
+input[type=checkbox] + label {
   height: 25px;
   width: 25px;
   border: 2px solid #fff;
@@ -182,13 +182,13 @@ input[type=radio] + label {
   border-radius: 20px;
   margin-right: 10px;
 }
-input[type=radio]:checked + label {
+input[type=checkbox]:checked + label {
   background-color: #fff;
 }
-input[type=radio] + label.option {
+input[type=checkbox] + label.option {
   border-color: #000;
 }
-input[type=radio]:checked + label.option {
+input[type=checkbox]:checked + label.option {
   background-color: #000;
 }
 #index-main .content {
@@ -247,7 +247,13 @@ input[type=radio]:checked + label.option {
 #poll-main section {
   flex: 1;
 }
-#poll-main section input[type=text] {
+#poll-main section h2.editable {
+  border-bottom: 2px solid #787878;
+}
+#poll-main section #description.editable {
+  border: 2px solid #787878;
+}
+#poll-main section #answer-input {
   height: 50px;
   margin: 0;
   padding: 0 5px;
@@ -257,7 +263,7 @@ input[type=radio]:checked + label.option {
   width: calc(100% - 74px);
   color: #000;
 }
-#poll-main section input[type=button] {
+#poll-main section #answer-submit {
   width: 52px;
   height: 52px;
   border: 1px solid #787878;
@@ -287,7 +293,7 @@ input[type=radio]:checked + label.option {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-#poll-main .description {
+#poll-main #description {
   line-height: 1.5em;
   color: #323232;
   margin: 10px 0;

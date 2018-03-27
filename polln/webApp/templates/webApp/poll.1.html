@@ -1,0 +1,59 @@
+{% extends 'webApp/layout.html' %}
+{% block content %}
+<main id="poll-main">
+    <h1>Poll-n</h1>
+    <div id="main-description">
+        Create poll for everybody
+        <br/>
+        <img src="/static/webApp/imgs/logo-tmp.png"/>
+
+    </div> 
+    <div class="link">
+        <div><label>Lien :</label> https://poll-n.com/poll?key=dqudzqhdzq8548zq4qz8dzq</div>
+        <div><label>Lien admin:</label> https://poll-n.com/poll?key=dqudzqhdzq8548zq4qz8dzq</div>
+    </div>
+    <div id="content-scretch">
+        <section class="container">
+            <h2>{{question.title}}</h2>
+            <div class="description">{{question.description}}</div>
+            <div class="line-answer">
+                <div class="remplissage remplissage-big"></div>
+                <div class="content"><input type="radio"><label class="radio"></label> Macdo</div>
+                
+            </div>
+            <div class="list-users"><span>Zorg</span><span>Keynnaly</span><span>Dracarys</span><span>Krystalia</span><span>Kornakh</span></div>
+            <div class="line-answer">
+                <div class="remplissage remplissage-middle"></div>
+                <div class="content"><input type="radio" checked><label class="radio"></label> Quick c'est le best</div>
+            </div>
+            <div class="list-users"><span>Zorg</span><span>Tjiho</span><span>Sinistag</span></div>
+            <div class="line-answer">
+                <div class="remplissage remplissage-low"></div>
+                <div class="content"><input type="radio"><label class="radio"></label> Kebab c'est le meilleur rapport qualité prix</div>
+            </div>
+            <div class="list-users"><span>Zorg</span></div>
+            <div class="line-answer">
+                <div class="remplissage remplissage-low"></div>
+                <div class="content"><input type="radio"><label class="radio"></label> Le mexicain</div>
+            </div>
+            <div class="list-users"><span>Sinistag</span></div>
+            <div class="line-answer">
+                <div class="remplissage remplissage-low"></div>
+                <div class="content"><input type="radio" checked><label class="radio"></label> L'entrecote, c'est à Toulouse</div>
+            </div>
+            <div class="list-users"><span>Tjiho</span></div>
+            <input type=text placeholder="add answer"/><input type="button" value="+">
+            
+        </section>
+        <aside class="container">
+            <h2>Options</h2>
+                <div class="line"><input type="radio"><label class="radio option"></label>Anonymous users can add answer</div>
+                <div class="line"><input type="radio" checked><label class="radio option"></label>Anonymous users can answer</div>
+                <div class="line"><input type="radio"><label class="radio option"></label>Anonymous users can delete anonymous choice</div>                
+            <h2>Stats</h2>
+                <div class="line">Nombre de votants : 7</div>
+                <div class="line">Best : 5/7</div>
+        </aside>
+    </div>
+</main>
+{% endblock %}

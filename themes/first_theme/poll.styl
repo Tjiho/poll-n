@@ -9,7 +9,12 @@
     section
         flex 1
 
-        input[type=text]
+        h2.editable
+            border-bottom 2px solid light
+
+        #description.editable
+            border 2px solid light
+        #answer-input
             height: 50px;
             margin: 0;
             padding: 0 5px;
@@ -19,7 +24,7 @@
             width: calc( 100% - 74px);
             color black
 
-        input[type=button]
+        #answer-submit
             width 52px
             height 52px
             border:1px solid light
@@ -50,7 +55,7 @@
             margin-top 20px
             margin-bottom 10px
 
-    .description
+    #description
         line-height: 1.5em;
         color: rgb(50,50,50);
         margin: 10px 0;

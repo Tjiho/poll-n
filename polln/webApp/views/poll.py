@@ -61,9 +61,10 @@ class Poll(View):
                 token_admin = token_admin,
                 user = user
             )
+            
             return HttpResponseRedirect("/poll/"+token_admin)
         list_options = Option.objects.all()
-        list_questions = Answer.objects.filter(question=question)
+        list_answer = Answer.objects.filter(question=question)
         return render(request, self.html, locals())
 
         
