@@ -1,13 +1,14 @@
 Poll-n
 ======
 
+
+![capture](screenshots/index.png)
+
 All the code is under the Mozilla Public License Version 2.0.
 
-Fonts are under there own license.
+Fonts are under there own licenses.
 
 The image named "draw.png" is the property of "Krystalia" : https://krysthalia.deviantart.com/, all right reserved.
-
-Other images are also under the Mozilla Public License Version 2.0.
 
 install
 -------
