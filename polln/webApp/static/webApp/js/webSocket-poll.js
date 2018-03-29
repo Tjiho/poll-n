@@ -2,12 +2,12 @@ console.log("load websocket script...")
 
 editDom = {}
 
-editDom.addAnswer = function(title)
+editDom.addAnswer = function(title,pk)
 {
     document.querySelector('#list-answer').innerHTML += `
         <div class="line-answer">
             <div class="remplissage remplissage-middle"></div>
-            <div class="content"><input type="radio"><label class="radio"></label>`+ title +`</div>
+            <div class="content"><input type="checkbox" value="`+pk+`" id='answer`+pk+`radio' onclick="clickRadioAnswer(this)"><label for='answer`+pk+`radio' class="radio"></label>`+ title +`</div>
         </div>
         <div class="list-users"></div>
     `
@@ -89,7 +89,42 @@ editDom.clickOutside = function(e)
         editDom.saveDescription()
 }
 
-//var roomName = {{ room_name_json }};
+
+editDom.addUserLoginOnAnswer = function(username,answer,user_pk,state)
+{
+    userDom = document.querySelector('#user-login-'+user_pk+"-"+answer);
+    answer_dom = document.querySelector('#list-login-user-'+answer);
+    if(userDom && !state && answer_dom)//delete user
+    {
+        userDom.parentNode.removeChild(userDom);
+    }
+    else if(!userDom && state && answer_dom)//add user
+    {
+        answer_dom.innerHTML += `
+            <span class="user" id="user-login-`+ user_pk +`-`+ answer +`">`+ username +`</span>
+        `
+    }
+}
+
+editDom.addUserAnonymOnAnswer = function(username,answer,user_pk,state)
+{
+    userDom = document.querySelector('#user-anonymous-'+user_pk+"-"+answer);
+    answer_dom = document.querySelector('#list-anonymous-user-'+answer);
+    console.log("do it!")
+    if(userDom && !state && answer_dom)//delete user
+    {
+        console.log("delete it!")
+        userDom.parentNode.removeChild(userDom);
+    }
+    else if(!userDom && state && answer_dom)//add user
+    {
+        console.log("add it!")
+        answer_dom.innerHTML += `
+            <span class="user" id="user-anonymous-`+ user_pk +`-`+ answer +`">`+ username +`</span>
+        `
+    }
+}
+
 
 var answerSocket = new WebSocket(
     'ws://' + window.location.host +
@@ -105,7 +140,7 @@ answerSocket.onmessage = function(e)
 
     switch(data_type) {
         case 'new_answer':
-            editDom.addAnswer(message)
+            editDom.addAnswer(message,data['pk'])
         break;
         case 'new_title':
             editDom.changeTitle(message)
@@ -113,12 +148,19 @@ answerSocket.onmessage = function(e)
         case 'new_description':
             editDom.changeDescription(message)
         break;
+        case 'new_check_answer':
+            if (data['is_login'])
+                editDom.addUserLoginOnAnswer(data['username'],data['answer'],data['user_pk'],data['state'])
+            else
+                editDom.addUserAnonymOnAnswer(data['username'],data['answer'],data['user_pk'],data['state'])
+
     }
 };
 
 answerSocket.onclose = function(e) 
 {
     console.error('Chat socket closed unexpectedly');
+    document.querySelector('#error').style.display = "block"
 };
 
 document.querySelector('#answer-input').onkeyup = function(e) 
@@ -170,7 +212,6 @@ document.querySelector('#answer-submit').onclick = function(e) {
     messageInputDom.value = '';
 };
 
-
 document.querySelector('#description').onclick = function(e) {
     editDom.editDescription()
 }
@@ -179,3 +220,12 @@ document.querySelector('#title').onclick = function(e) {
     editDom.editTitle()
 }
 
+function clickRadioAnswer(element)
+{
+    value = element.value
+    answerSocket.send(JSON.stringify({
+        'type': 'new_check_answer',
+        'answer': value,
+        'checked': element.checked
+    }));
+}

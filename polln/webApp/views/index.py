@@ -5,7 +5,7 @@ from webApp.forms import LoginForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from webApp.utils.arel import Arel
-from django.contrib.auth.models import User
+from webApp.models import User
 from django.contrib.auth import authenticate, login
 
 class Index(View):

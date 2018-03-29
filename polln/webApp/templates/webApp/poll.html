@@ -1,6 +1,7 @@
 {% extends 'webApp/layout.html' %}
 {% block content %}
 <main id="poll-main">
+    <div id="error">You lost connection with the server, try to reload the page</div>
     <h1>Poll-n</h1>
     <div id="main-description">
         Create poll for everybody
@@ -19,12 +20,35 @@
             <h2 id="title">{{question.title}}</h2>
             <div id="description">{{question.description}}</div>
             <div id="list-answer">
-            {% for answer in list_answer %}
+            
+            {% for answer in list_answer_zip %}
+                
                 <div class="line-answer">
                     <div class="remplissage remplissage-middle"></div>
-                    <div class="content"><input type="checkbox" id='answer{{answer.pk}}radio'><label for='answer{{answer.pk}}radio' class="radio"></label>{{answer.title}}</div>
+                    <div class="content">
+                        <input  type="checkbox" 
+                                value="{{answer.0.pk}}" 
+                                id='answer{{answer.0.pk}}radio' 
+                                onclick="clickRadioAnswer(this)"
+                                    {% if answer.1 %}
+                                checked
+                                    {% endif %}
+                        >
+                        <label for='answer{{answer.0.pk}}radio' class="radio"></label>{{answer.0.title}}
+                    </div>
                 </div>
-                <div class="list-users"></div>
+                <div class="list-users">
+                    <span class="list-login-user" id="list-login-user-{{answer.0.pk}}">
+                        {% for user in answer.0.connected_users.all %}
+                            <span class="user" id="user-login-{{ user.pk }}-{{answer.0.pk}}">{{user}}</span>
+                        {% endfor %}
+                    </span>
+                    <span class="list-anonymous-user" id="list-anonymous-user-{{answer.0.pk}}">
+                        {% for user in answer.0.users.all %}
+                            <span class="user" id="user-anonymous-{{ user.pk }}-{{answer.0.pk}}">{{user}}</span>
+                        {% endfor %}
+                    </span>
+                </div>
             {% endfor %}
             </div>
             <input type=text placeholder="add answer" id="answer-input"/><input type="button" value="+" id="answer-submit">

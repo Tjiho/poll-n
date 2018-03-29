@@ -1,6 +1,7 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from webApp.models import Question,Anonym_user,Option,Answer
+from webApp.models import Question,Anonym_user,Option,Answer,User
+from channels.auth import get_user
 
 import json
 
@@ -54,11 +55,11 @@ class PollAnswerConsumer(WebsocketConsumer):
 
         if poll and  self.poll \
                 and poll['question'].token == self.poll['question'].token \
-                and 'type' in text_data_json \
-                and 'message' in text_data_json:
+                and 'type' in text_data_json:
 
-            if text_data_json["type"] == "new_answer":
-                if poll["admin"] or self.scope["user"].is_authenticated:
+            if text_data_json["type"] == "new_answer" :
+                if (poll["admin"] or get_user(self.scope).is_authenticated)\
+                                 and 'message' in text_data_json:
 
                     
                     message = text_data_json['message']
@@ -67,20 +68,22 @@ class PollAnswerConsumer(WebsocketConsumer):
                             title = message,
                             question = poll["question"]
                         )
+
                         # Send message to room group
                         async_to_sync(self.channel_layer.group_send)(
                             self.room_group_name,
                             {
                                 'type': 'new_answer',
-                                'message': message
+                                'message': message,
+                                'pk': answer.pk
                             }
                         )
             elif text_data_json["type"] == "new_title":
-                if poll["admin"]:
+                if poll["admin"] and 'message' in text_data_json:
                     message = text_data_json['message']
                     if message:
                         poll["question"].title = message
-                        #poll["question"].objects.save()
+                        poll["question"].save()
                         async_to_sync(self.channel_layer.group_send)(
                             self.room_group_name,
                             {
@@ -89,11 +92,11 @@ class PollAnswerConsumer(WebsocketConsumer):
                             }
                         )
             elif text_data_json["type"] == "new_description":
-                if poll["admin"]:
+                if poll["admin"] and 'message' in text_data_json:
                     message = text_data_json['message']
                     if message:
                         poll["question"].description = message
-                        #poll["question"].objects.save()
+                        poll["question"].save()
                         async_to_sync(self.channel_layer.group_send)(
                             self.room_group_name,
                             {
@@ -101,15 +104,47 @@ class PollAnswerConsumer(WebsocketConsumer):
                                 'message': message
                             }
                         )
+            elif text_data_json["type"] == "new_check_answer":
+                if 'answer' in text_data_json \
+                and 'checked' in text_data_json:
+                    user = get_user(self.scope)
+                    answer = Answer.objects.get(pk=text_data_json["answer"])
+
+                    if user.is_authenticated:
+                        if answer.change_state_user(user.pk,True,text_data_json['checked']):
+                            self.send_Room_check_answer(user.username,True,answer.pk,user.pk,text_data_json['checked'])
+
+                    elif self.scope["session"]:
+                        user_pk = self.scope["session"]["user_anonym"]
+                        anonym = Anonym_user.objects.get(pk=user_pk)
+                        if answer.change_state_user(anonym.pk,False,text_data_json['checked']):
+                            self.send_Room_check_answer(anonym.name,False,answer.pk,anonym.pk,text_data_json['checked'])
+                        
+                        
+                        
+    def send_Room_check_answer(self,username,is_login,answer,user_pk,state):
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                'type': 'new_check_answer',
+                'username': username,
+                'is_login': is_login,
+                'answer': answer,
+                'user_pk': user_pk,
+                'state': state
+            }
+        )
+
+
+                
 
 
     # Receive message from room group
     def new_answer(self, event):
-        message = event['message']
-        
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message,
+            'message': event['message'],
+            'pk':   event['pk'],
             'type': 'new_answer'
         }))
 
@@ -117,14 +152,25 @@ class PollAnswerConsumer(WebsocketConsumer):
         message = event['message']
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message,
-            'type': 'new_title'
+            'message':  message,
+            'type':     'new_title'
         }))
     
     def new_description(self,event):
         message = event['message']
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message,
-            'type': 'new_description'
+            'message':  message,
+            'type':     'new_description'
         }))
+
+    def new_check_answer(self,event):
+        self.send(text_data=json.dumps({
+            'type': 'new_check_answer',
+            'username': event['username'],
+            'is_login': event['is_login'],
+            'answer':   event['answer'],
+            'user_pk':  event['user_pk'],
+            'state':    event['state']
+        }))
+        
