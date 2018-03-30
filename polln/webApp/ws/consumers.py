@@ -57,9 +57,10 @@ class PollAnswerConsumer(WebsocketConsumer):
                 and poll['question'].token == self.poll['question'].token \
                 and 'type' in text_data_json:
 
-            if text_data_json["type"] == "new_answer" and poll["question"].annonymous_can_add_answer:
-                if (poll["admin"] or get_user(self.scope).is_authenticated)\
-                                 and 'message' in text_data_json:
+            if text_data_json["type"] == "new_answer":
+                if (poll["admin"]   or get_user(self.scope).is_authenticated
+                                    or poll["question"].annonymous_can_add_answer)\
+                                    and 'message' in text_data_json:
 
                     
                     message = text_data_json['message']
@@ -126,6 +127,15 @@ class PollAnswerConsumer(WebsocketConsumer):
                         self.room_group_name,
                         text_data_json
                     )
+
+            elif text_data_json["type"] == "delete_answer":
+                if poll["admin"] and 'answer' in text_data_json:
+                    answer = Answer.objects.get(pk=text_data_json["answer"])
+                    answer.delete()
+                    async_to_sync(self.channel_layer.group_send)(
+                        self.room_group_name,
+                        text_data_json
+                    )
                         
                         
     def send_Room_check_answer(self,username,is_login,answer,user_pk,state):
@@ -179,5 +189,8 @@ class PollAnswerConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps(event))
     
     def new_option(self,event):
+        self.send(text_data=json.dumps(event))
+
+    def delete_answer(self,event):
         self.send(text_data=json.dumps(event))
         

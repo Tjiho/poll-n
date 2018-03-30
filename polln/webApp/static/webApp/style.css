@@ -383,6 +383,11 @@ input[type=checkbox]:checked + label.option {
   transform: translateY(-50%);
   font-weight: 800;
 }
+#poll-main .line-answer .delete {
+  height: 100%;
+  position: absolute;
+  left: -50px;
+}
 #main-poll-pseudo form {
   width: 400px;
   margin: auto;

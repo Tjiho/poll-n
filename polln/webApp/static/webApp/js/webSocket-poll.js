@@ -4,13 +4,20 @@ editDom = {}
 
 editDom.addAnswer = function(title,pk)
 {
-    document.querySelector('#list-answer').innerHTML += `
+    htmlAnswer =`
+        <div id="answer`+pk+`">
         <div class="line-answer">
-            <div class="remplissage remplissage-middle"></div>
-            <div class="content"><input type="checkbox" value="`+pk+`" id='answer`+pk+`radio' onclick="clickRadioAnswer(this)"><label for='answer`+pk+`radio' class="radio"></label>`+ title +`</div>
+            <div class="remplissage" style="width: 0%"></div>
+            <div class="content"><input type="checkbox" value="`+pk+`" id='answer`+pk+`radio' onclick="clickRadioAnswer(this)"><label for='answer`+pk+`radio' class="radio"></label>`+ title +`</div>`
+            
+            if(is_admin)
+                htmlAnswer += `<img src="/static/webApp/imgs/garbage.svg" class="delete" onclick="clickDeleteAnswer(`+pk+`)"/>`
+        
+        htmlAnswer += `
         </div>
         <div class="list-users"></div>
-    `
+        </div>`
+    document.querySelector('#list-answer').innerHTML += htmlAnswer
 }
 
 editDom.changeTitle = function(content)
@@ -168,6 +175,9 @@ answerSocket.onmessage = function(e)
                 document.querySelector('#option-annonymous-can-add-answer').checked = data['value']
             else if(message == "annonymous_can_answer")
                 document.querySelector('#option-annonymous-can-answer').checked = data['value']
+        case 'delete_answer':
+            answer = document.querySelector('#answer'+data['answer'])
+            answer.parentNode.removeChild(answer);
 
 
 
@@ -269,5 +279,13 @@ function clickRadioAnswer(element)
         'type': 'new_check_answer',
         'answer': value,
         'checked': element.checked
+    }));
+}
+
+function clickDeleteAnswer(value)
+{
+    answerSocket.send(JSON.stringify({
+        'type': 'delete_answer',
+        'answer': value,
     }));
 }
