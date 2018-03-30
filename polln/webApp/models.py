@@ -73,8 +73,10 @@ class Answer(models.Model):
     def percentage(self):
         nbr_check = len(self.users.all())+len(self.connected_users.all())
         nbr_tot = len(self.question.real_participant)
-        return (nbr_check/nbr_tot)*100
-    
+        if nbr_tot > 0:
+            return (nbr_check/nbr_tot)*100
+        else:
+            return 0
     def check_for_user(self, user_pk,is_login):
         if is_login:
             user = User.objects.get(pk=user_pk)

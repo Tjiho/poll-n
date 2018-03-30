@@ -99,7 +99,7 @@ class PollAnswerConsumer(WebsocketConsumer):
                             self.room_group_name,
                             text_data_json
                         )
-            elif text_data_json["type"] == "new_check_answer" and poll["question"].annonymous_can_answer:
+            elif text_data_json["type"] == "new_check_answer" :
                 if 'answer' in text_data_json \
                 and 'checked' in text_data_json:
                     user = get_user(self.scope)
@@ -109,7 +109,7 @@ class PollAnswerConsumer(WebsocketConsumer):
                         if answer.change_state_user(user.pk,True,text_data_json['checked']):
                             self.send_Room_check_answer(user.username,True,answer,user.pk,text_data_json['checked'])
 
-                    elif self.scope["session"]:
+                    elif self.scope["session"] and poll["question"].annonymous_can_answer:
                         user_pk = self.scope["session"]["user_anonym"]
                         anonym = Anonym_user.objects.get(pk=user_pk)
                         if answer.change_state_user(anonym.pk,False,text_data_json['checked']):

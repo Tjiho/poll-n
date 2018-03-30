@@ -117,14 +117,15 @@ editDom.addUserLoginOnAnswer = function(username,answer,user_pk,state)
 
 editDom.addUserAnonymOnAnswer = function(username,answer,user_pk,state)
 {
-    userDom = document.querySelector('#user-anonymous-'+user_pk+"-"+answer);
+    user_dom = document.querySelector('#user-anonymous-'+user_pk+"-"+answer);
     answer_dom = document.querySelector('#list-anonymous-user-'+answer);
 
-    if(userDom && !state && answer_dom)//delete user
+    if(user_dom && !state && answer_dom)//delete user
     {
-        userDom.parentNode.removeChild(userDom);
+        console.log("plop")
+        user_dom.parentNode.removeChild(user_dom);
     }
-    else if(!userDom && state && answer_dom)//add user
+    else if(!user_dom && state && answer_dom)//add user
     {
         answer_dom.innerHTML += `
             <span class="user" id="user-anonymous-`+ user_pk +`-`+ answer +`">`+ username +`</span>
@@ -170,15 +171,17 @@ answerSocket.onmessage = function(e)
                 editDom.addUserLoginOnAnswer(data['username'],data['answer'],data['user_pk'],data['state'])
             else
                 editDom.addUserAnonymOnAnswer(data['username'],data['answer'],data['user_pk'],data['state'])
+        break;
         case 'new_option':
             if (message == "annonymous_can_add_answer")
                 document.querySelector('#option-annonymous-can-add-answer').checked = data['value']
             else if(message == "annonymous_can_answer")
                 document.querySelector('#option-annonymous-can-answer').checked = data['value']
+        break;
         case 'delete_answer':
             answer = document.querySelector('#answer'+data['answer'])
             answer.parentNode.removeChild(answer);
-
+        break;
 
 
     }
