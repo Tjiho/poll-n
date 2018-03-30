@@ -2,7 +2,7 @@ from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse
 from webApp.forms import PseudoForm
-from webApp.models import Question,Anonym_user,Option,Answer,User
+from webApp.models import Question,Anonym_user,Answer,User
 from django.http import HttpResponseRedirect
 import binascii
 import os
@@ -74,13 +74,13 @@ class Poll(View):
             
             return HttpResponseRedirect("/poll/"+token_admin)
         
-        
-        
-        list_options = Option.objects.all()
+        if user and not question in user.participateTo.all():
+            user.participateTo.add(question)
+
         list_answer = Answer.objects.filter(question=question)
         list_answer_checked = list(map(user.answer_checked,list_answer))
         list_answer_zip = zip(list_answer,list_answer_checked)
-        print(list_answer_checked)
+
         return render(request, self.html, locals())
 
         

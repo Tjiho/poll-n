@@ -1,8 +1,9 @@
 #poll-main
-    background-color white
+    background-color rgba(240,240,245,0.98)
     .link
         display flex
-        justify-content:center
+        justify-content center
+        flex-wrap wrap
         div
             margin 10px
             font-size 1.1em
@@ -34,15 +35,37 @@
             margin-left: 10px;
 
         .list-users 
+            min-height 40px
             .user
                 color white
                 margin 0 15px 8px 0px
                 min-width 70px
                 display inline-block
                 background-color blueviolet
-                padding 5px
+                padding 0px 5px
                 /*background: linear-gradient(to top left, #D9AFD9, #97D9E1);*/
                 border-radius 2px
+                
+                height 30px
+
+                display: inline-flex;
+                justify-content: left ;
+                align-items:center
+
+                vertical-align middle
+
+            .user::first-letter
+                color:red !important
+
+            .list-login-user .user::before
+                content " "
+                display inline-block
+                vertical-align middle
+                margin-right 10px
+                height 20px
+                width 20px
+                background-image url('/static/webApp/imgs/check.svg')
+
                 
     aside
         width 400px
@@ -55,12 +78,37 @@
             margin-top 20px
             margin-bottom 10px
 
+        .marks
+            display flex
+
+            .mark
+                flex:1
+                margin 5px
+                text-align center
+
+                .number-info
+                    font-size 2em
+                    color main-color
+
+                .description-info
+                    img
+                        height: 1.5em;
+                        vertical-align: middle;
+                        margin-right: 10px;
+
+        input + label
+            border-color:main-color
+
+        input:checked + label
+            background-color main-color
+
     #description
         line-height: 1.5em;
         color: rgb(50,50,50);
         margin: 10px 0;
         text-align: justify;
         min-height: 50px;
+        color:light
 
     .line-answer
         background-color: rgb(230,230,230);
@@ -76,20 +124,8 @@
             top 0px
             height 100%
             z-index 0
-
-        .remplissage-big
-            width 75%
-            background: linear-gradient(to left, #97e56a, #1dae3b);
-
-        .remplissage-middle
             width 45%
-            background: linear-gradient(to left,#80C1FE, #5268FF);
-            
-
-        .remplissage-low
-            background: linear-gradient(to left,#F0C19E, #FF5D5D);
-            width 15%
-
+            background:  linear-gradient(to left,#80C1FE,#80C1FE, #5268FF);
         
         .content
             z-index 2

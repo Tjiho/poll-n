@@ -24,7 +24,7 @@
             {% for answer in list_answer_zip %}
                 
                 <div class="line-answer">
-                    <div class="remplissage remplissage-middle"></div>
+                    <div class="remplissage remplissage-middle" id="remplissage-{{ answer.0.pk}}" style="width: {{ answer.0.percentage }}%"></div>
                     <div class="content">
                         <input  type="checkbox" 
                                 value="{{answer.0.pk}}" 
@@ -40,12 +40,12 @@
                 <div class="list-users">
                     <span class="list-login-user" id="list-login-user-{{answer.0.pk}}">
                         {% for user in answer.0.connected_users.all %}
-                            <span class="user" id="user-login-{{ user.pk }}-{{answer.0.pk}}">{{user}}</span>
+                            <span class="user" id="user-login-{{ user.pk }}-{{answer.0.pk}}">{{ user }}</span>
                         {% endfor %}
                     </span>
                     <span class="list-anonymous-user" id="list-anonymous-user-{{answer.0.pk}}">
                         {% for user in answer.0.users.all %}
-                            <span class="user" id="user-anonymous-{{ user.pk }}-{{answer.0.pk}}">{{user}}</span>
+                            <span class="user" id="user-anonymous-{{ user.pk }}-{{answer.0.pk}}">{{ user }}</span>
                         {% endfor %}
                     </span>
                 </div>
@@ -55,13 +55,38 @@
             
         </section>
         <aside class="container">
+            <div class="marks">
+                <div class="mark">
+                    <div class="number-info" id="number-views">{{question.participant | length}}</div>
+                    <div class="description-info"><img src="/static/webApp/imgs/eye.svg"/>Views</div>
+                </div>
+                <div class="mark">
+                    <div class="number-info" id="number-vote">{{question.real_participant | length}}</div>
+                    <div class="description-info"><img src="/static/webApp/imgs/vote.svg"/>Vote</div>
+                </div>
+                <div class="mark">
+                        <div class="number-info" id="number-accounts">{{question.connected_participant.all | length}}</div>
+                        <div class="description-info"><img src="/static/webApp/imgs/check.svg"/>Accounts</div>
+                </div>
+            </div>
             <h2>Options</h2>
-                <div class="line"><input type="checkbox"><label class="radio option"></label>Anonymous users can add answer</div>
-                <div class="line"><input type="checkbox" checked><label class="radio option"></label>Anonymous users can answer</div>
-                <div class="line"><input type="checkbox"><label class="radio option"></label>Anonymous users can delete anonymous choice</div>                
-            <h2>Stats</h2>
-                <div class="line">Nombre de votants : 7</div>
-                <div class="line">Best : 5/7</div>
+                <div class="line">
+                    <input type="checkbox" id="option-annonymous-can-add-answer" 
+                        {% if question.annonymous_can_add_answer %} checked="true" {%endif%} 
+                        {% if not admin %} disabled="disabled" {%endif%}
+                    >
+                    <label class="radio option" for="option-annonymous-can-add-answer" id="option-annonymous-can-add-answer-label"></label>
+                    Anonymous users can add answer
+                </div>
+                <div class="line">
+                    <input type="checkbox" id="option-annonymous-can-answer" 
+                        {% if question.annonymous_can_answer %} checked="true" {%endif%}
+                        {% if not admin %} disabled="disabled" {%endif%}
+                    >
+                    <label class="radio option" for="option-annonymous-can-answer" id="option-annonymous-can-answer-label"></label>
+                    Anonymous users can answer
+                </div>
+               
         </aside>
     </div>
     <script>var poll_token = "{{token}}"; var is_admin = ("{{admin}}" == "True") </script>

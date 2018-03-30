@@ -32,7 +32,6 @@ editDom.editTitle = function()
 editDom.saveTitle = function()
 {
     titleDom = document.querySelector('#title')
-    console.log(titleDom.contentEditable)
     if (titleDom.contentEditable && titleDom.contentEditable ==  "true")
     {
         titleDom.contentEditable = false
@@ -81,7 +80,6 @@ editDom.saveDescription = function()
 
 editDom.clickOutside = function(e)
 {
-    console.log(e.target.id != "description")
     if(e.target.id != "title")
         editDom.saveTitle()
     
@@ -94,15 +92,19 @@ editDom.addUserLoginOnAnswer = function(username,answer,user_pk,state)
 {
     userDom = document.querySelector('#user-login-'+user_pk+"-"+answer);
     answer_dom = document.querySelector('#list-login-user-'+answer);
+    check_dom = document.querySelector('#answer'+answer+'radio');
     if(userDom && !state && answer_dom)//delete user
     {
         userDom.parentNode.removeChild(userDom);
+        check_dom.checked = false
     }
     else if(!userDom && state && answer_dom)//add user
     {
         answer_dom.innerHTML += `
             <span class="user" id="user-login-`+ user_pk +`-`+ answer +`">`+ username +`</span>
         `
+
+        check_dom.checked = true
     }
 }
 
@@ -110,31 +112,37 @@ editDom.addUserAnonymOnAnswer = function(username,answer,user_pk,state)
 {
     userDom = document.querySelector('#user-anonymous-'+user_pk+"-"+answer);
     answer_dom = document.querySelector('#list-anonymous-user-'+answer);
-    console.log("do it!")
+
     if(userDom && !state && answer_dom)//delete user
     {
-        console.log("delete it!")
         userDom.parentNode.removeChild(userDom);
     }
     else if(!userDom && state && answer_dom)//add user
     {
-        console.log("add it!")
         answer_dom.innerHTML += `
             <span class="user" id="user-anonymous-`+ user_pk +`-`+ answer +`">`+ username +`</span>
         `
     }
 }
 
+editDom.changeStat = function(number_accounts,number_vote,number_views)
+{
+    document.querySelector('#number-accounts').innerText = number_accounts
+    document.querySelector('#number-vote').innerText = number_vote
+    document.querySelector('#number-views').innerText = number_views
+}
 
+editDom.changePercentage = function(percentage,answer)
+{
+    document.querySelector('#remplissage-'+answer).style.width=percentage+"%"
+}
 var answerSocket = new WebSocket(
     'ws://' + window.location.host +
     '/ws/poll/'+poll_token+'/answer/');
 
 answerSocket.onmessage = function(e) 
 {
-    console.log(e.data)
     var data = JSON.parse(e.data);
-    console.log(data)
     var data_type = data['type'];
     var message = data['message'];
 
@@ -149,10 +157,19 @@ answerSocket.onmessage = function(e)
             editDom.changeDescription(message)
         break;
         case 'new_check_answer':
+            editDom.changePercentage(data['percentage'],data['answer'])
+            editDom.changeStat(data['number_accounts'],data['number_vote'],data['number_views'])
             if (data['is_login'])
                 editDom.addUserLoginOnAnswer(data['username'],data['answer'],data['user_pk'],data['state'])
             else
                 editDom.addUserAnonymOnAnswer(data['username'],data['answer'],data['user_pk'],data['state'])
+        case 'new_option':
+            if (message == "annonymous_can_add_answer")
+                document.querySelector('#option-annonymous-can-add-answer').checked = data['value']
+            else if(message == "annonymous_can_answer")
+                document.querySelector('#option-annonymous-can-answer').checked = data['value']
+
+
 
     }
 };
@@ -169,6 +186,32 @@ document.querySelector('#answer-input').onkeyup = function(e)
     {  // enter, return
         document.querySelector('#answer-submit').click();
     }
+};
+
+
+document.querySelector('#option-annonymous-can-add-answer-label').onclick = function(e) 
+{
+    var value = !document.querySelector('#option-annonymous-can-add-answer').checked;
+    
+    answerSocket.send(JSON.stringify({
+        'type': 'new_option',
+        'message': 'annonymous_can_add_answer',
+        'value':value
+    }));
+
+    console.log(value)
+};
+
+document.querySelector('#option-annonymous-can-answer-label').onclick = function(e) 
+{
+    var value = !document.querySelector('#option-annonymous-can-answer').checked;
+    
+    answerSocket.send(JSON.stringify({
+        'type': 'new_option',
+        'message': 'annonymous_can_answer',
+        'value':value
+    }));
+    console.log(value)
 };
 
 document.querySelector('#title').onkeydown = function(e) 
@@ -208,7 +251,6 @@ document.querySelector('#answer-submit').onclick = function(e) {
         'type': 'new_answer',
         'message': message
     }));
-
     messageInputDom.value = '';
 };
 

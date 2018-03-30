@@ -1,11 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
- <g transform="translate(0 -1002.4)">
-  <g fill="#45d6a9">
-   <path d="m25 1003.6c-13.112 0-23.781 10.667-23.781 23.779 1.49e-5 13.112 10.669 23.781 23.781 23.781s23.781-10.669 23.781-23.781c-1.5e-5 -13.112-10.669-23.779-23.781-23.779zm0 3.6114c11.16 0 20.168 9.0078 20.168 20.168-1.3e-5 11.16-9.0078 20.17-20.168 20.17-11.16 1e-4 -20.168-9.0097-20.168-20.17 1.27e-5 -11.16 9.0078-20.168 20.168-20.168z" color="#000000" color-rendering="auto" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-   <g transform="matrix(.61243 0 0 .61243 7.0239 405.45)">
-    <path transform="matrix(.91761 0 0 .91761 2.0598 1003)" d="m10.641 5.4531c-0.59364 0-1.1877 0.22872-1.6426 0.68359l-2.8613 2.8613c-0.90975 0.90975-0.90975 2.3735 0 3.2832l12.719 12.719 6.1445 6.1445 6.1445-6.1445 22.204-22.204c0.90975-0.90975 0.90975-2.3735 0-3.2832l-2.8613-2.8613c-0.90975-0.90975-2.3735-0.90975-3.2832 0l-22.204 22.204-12.719-12.719c-0.45487-0.45487-1.047-0.68359-1.6406-0.68359z" fill="#45d6a9"/>
-   </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0 0 50 50"
+   id="svg12"
+   sodipodi:docname="check.svg"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1020"
+     id="namedview14"
+     showgrid="false"
+     inkscape:zoom="4.72"
+     inkscape:cx="25"
+     inkscape:cy="25"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12" />
+  <g
+     transform="translate(0 -1002.4)"
+     id="g10"
+     style="fill:#000000">
+    <g
+       fill="#45d6a9"
+       id="g8"
+       style="fill:#000000">
+      <path
+         d="m25 1003.6c-13.112 0-23.781 10.667-23.781 23.779 1.49e-5 13.112 10.669 23.781 23.781 23.781s23.781-10.669 23.781-23.781c-1.5e-5 -13.112-10.669-23.779-23.781-23.779zm0 3.6114c11.16 0 20.168 9.0078 20.168 20.168-1.3e-5 11.16-9.0078 20.17-20.168 20.17-11.16 1e-4 -20.168-9.0097-20.168-20.17 1.27e-5 -11.16 9.0078-20.168 20.168-20.168z"
+         color="#000000"
+         color-rendering="auto"
+         image-rendering="auto"
+         shape-rendering="auto"
+         solid-color="#000000"
+         style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal;fill:#000000"
+         id="path2" />
+      <g
+         transform="matrix(.61243 0 0 .61243 7.0239 405.45)"
+         id="g6"
+         style="fill:#000000">
+        <path
+           transform="matrix(.91761 0 0 .91761 2.0598 1003)"
+           d="m10.641 5.4531c-0.59364 0-1.1877 0.22872-1.6426 0.68359l-2.8613 2.8613c-0.90975 0.90975-0.90975 2.3735 0 3.2832l12.719 12.719 6.1445 6.1445 6.1445-6.1445 22.204-22.204c0.90975-0.90975 0.90975-2.3735 0-3.2832l-2.8613-2.8613c-0.90975-0.90975-2.3735-0.90975-3.2832 0l-22.204 22.204-12.719-12.719c-0.45487-0.45487-1.047-0.68359-1.6406-0.68359z"
+           fill="#45d6a9"
+           id="path4"
+           style="fill:#000000" />
+      </g>
+    </g>
   </g>
- </g>
 </svg>
