@@ -47,3 +47,11 @@ sudo npm install stylus -g
 stylus -w themes/main.styl -o polln/webApp/static/webApp/style.css
 ```
 
+Images
+------
+![capture](screenshots/home.png)
+
+
+![capture](screenshots/poll.png)
+
+

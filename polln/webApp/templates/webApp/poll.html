@@ -2,6 +2,7 @@
 {% block content %}
 <main id="poll-main">
     <div id="error">You lost connection with the server, try to reload the page</div>
+
     <h1>Poll-n</h1>
     <div id="main-description">
         Create poll for everybody
@@ -59,6 +60,7 @@
             
         </section>
         <aside class="container">
+            
             <div class="marks">
                 <div class="mark">
                     <div class="number-info" id="number-views">{{question.participant | length}}</div>
@@ -90,6 +92,13 @@
                     <label class="radio option" for="option-annonymous-can-answer" id="option-annonymous-can-answer-label"></label>
                     Anonymous users can answer
                 </div>
+            <h2>{{user}}</h2>
+            <nav>
+                    {% if user.is_login == False %} <a class="account disabled" >My account</a> {%endif%}
+                    {% if user.is_login == True %}  <a href="/home" class="account" >My account</a> {%endif%}
+                   
+                    <a href="/logout">Logout</a>               
+            </nav>
                
         </aside>
     </div>

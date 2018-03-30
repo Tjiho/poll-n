@@ -13,4 +13,6 @@ class Home(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             user = request.user
+            print(dir(user))
+            print(user.question_set.all())
             return render(request, self.html, locals())

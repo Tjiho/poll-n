@@ -250,7 +250,7 @@ input[type=checkbox]:checked + label.option {
 #poll-main .link {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: scretch;
 }
 #poll-main .link div {
   margin: 10px;
@@ -316,6 +316,26 @@ input[type=checkbox]:checked + label.option {
 }
 #poll-main aside {
   width: 400px;
+}
+#poll-main aside nav {
+  display: flex;
+}
+#poll-main aside nav a {
+  flex: 1;
+  border: 2px solid #80c1fe;
+  margin: 5px;
+  text-align: center;
+  padding: 10px 0px;
+  color: #000;
+  text-decoration: none;
+}
+#poll-main aside nav a.disabled {
+  border-color: #d3d3d3;
+  background-color: #d3d3d3;
+  color: #808080;
+}
+#poll-main aside nav .account {
+  background-color: #80c1fe;
 }
 #poll-main aside .line {
   padding: 10px 3px;
@@ -387,6 +407,47 @@ input[type=checkbox]:checked + label.option {
   height: 100%;
   position: absolute;
   left: -50px;
+}
+#home-main {
+  display: block !important;
+  padding: 15px;
+  width: auto;
+}
+#home-main h2 {
+  margin: 15px;
+}
+#home-main .poll {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(255,255,255,0.5);
+  border: 2px solid #000;
+  border-image-source: linear-gradient(to left, #08eae2, #08aeea);
+  border-image-slice: 1;
+  border-image-width: 2;
+  border-image-repeat: round;
+  border-image-outset: 1;
+  vertical-align: middle;
+  color: #000;
+  text-decoration: none;
+}
+#home-main .poll-participate {
+  border-image-source: linear-gradient(to left, #f4b0b0, #b86de3);
+}
+#home-main .poll-create {
+  border-image-source: linear-gradient(to left, #97e56a, #1dae3b);
+  color: #000;
+  text-decoration: underline;
+}
+#home-main .logout {
+  background: linear-gradient(to left, #a199b6, #8070ae);
+  color: #fff !important;
 }
 #main-poll-pseudo form {
   width: 400px;
