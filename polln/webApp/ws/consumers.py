@@ -58,7 +58,7 @@ class PollAnswerConsumer(WebsocketConsumer):
                 and poll['question'].token == self.poll['question'].token \
                 and 'type' in text_data_json:
             if text_data_json["type"] == "new_answer":
-                if (poll["admin"]   or user.is_authenticated
+                if (poll["admin"]   or user.is_login
                                     or poll["question"].annonymous_can_add_answer)\
                                     and 'message' in text_data_json:
 
