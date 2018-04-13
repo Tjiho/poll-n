@@ -41,8 +41,13 @@ class Poll(View):
                 anonym = Anonym_user.objects.create(
                     name = form.cleaned_data["name"]
                 )
+                
                 request.session["user_anonym"] = anonym.pk
-                return self.getOrCreateForm(request,anonym,kwargs.get("key"))
+
+                if kwargs.get("key"):
+                    return HttpResponseRedirect("/poll/"+kwargs.get("key"))
+                else:
+                    return self.getOrCreateForm(request,anonym,kwargs.get("key"))
             else:
                 return render(request, self.html_login, locals())
 

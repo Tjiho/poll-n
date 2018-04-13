@@ -72,7 +72,7 @@ class PollAnswerConsumer(WebsocketConsumer):
 
                         answer.change_state_user(user.pk, user.is_login(), True, poll["admin"])
 
-                        # Send message to room group
+                        # Send message "new answer" to room group
                         async_to_sync(self.channel_layer.group_send)(
                             self.room_group_name,
                             {
@@ -84,6 +84,19 @@ class PollAnswerConsumer(WebsocketConsumer):
                                 'user_pk':user.pk
                             }
                         )
+                        # Send message "answer checked" to room group
+                        
+                        self.send_Room_check_answer(
+                            user.username,
+                            user.is_login(),
+                            answer,
+                            user.pk,
+                            True
+                        )
+
+                        
+
+
             elif text_data_json["type"] == "new_title":
                 if poll["admin"] and 'message' in text_data_json:
                     message = text_data_json['message']

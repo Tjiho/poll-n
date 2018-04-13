@@ -2,13 +2,13 @@ console.log("load websocket script...")
 
 editDom = {}
 
-editDom.addAnswer = function(title,pk,percentage,username,user_pk)
+editDom.addAnswer = function(title,pk)
 {
     htmlAnswer =`
         <div id="answer`+pk+`">
             <div class="line-answer">
-                <div class="remplissage" id="remplissage-${pk}" style="width: `+percentage+`%"></div>
-                <div class="content"><input type="checkbox" value="`+pk+`" id='answer`+pk+`radio' onclick="clickRadioAnswer(this)" checked><label for='answer`+pk+`radio' class="radio"></label>`+ title +`</div>`
+                <div class="remplissage" id="remplissage-${pk}" style="width: 0%"></div>
+                <div class="content"><input type="checkbox" value="`+pk+`" id='answer`+pk+`radio' onclick="clickRadioAnswer(this)"><label for='answer`+pk+`radio' class="radio"></label>`+ title +`</div>`
             
     if(is_admin)
         htmlAnswer += `<img src="/static/webApp/imgs/garbage.svg" class="delete" onclick="clickDeleteAnswer(`+pk+`)"/>`
@@ -16,19 +16,9 @@ editDom.addAnswer = function(title,pk,percentage,username,user_pk)
     htmlAnswer += `
             </div>
             <div class="list-users">
-                <span class="list-login-user">`
-
-    if(is_login)
-        htmlAnswer += `<span class="user" id="user-login-`+ user_pk +`-`+ pk +`">`+ username +`</span>`
-                
-    htmlAnswer +=`
+                <span class="list-login-user" id="list-login-user-${pk}">
                 </span>
-                <span class="list-anonymous-user">`
-
-    if(!is_login)
-        htmlAnswer += `<span class="user" id="user-anonymous-`+ user_pk +`-`+ pk +`">`+ username +`</span>`
-
-    htmlAnswer +=`
+                <span class="list-anonymous-user" id="list-anonymous-user-${pk}">
                 </span>
             </div>
         </div>`
@@ -185,7 +175,7 @@ answerSocket.onmessage = function(e)
 
     switch(data_type) {
         case 'new_answer':
-            editDom.addAnswer(message,data['pk'],data['percentage'],data['username'],data['user_pk'])
+            editDom.addAnswer(message,data['pk'])
         break;
         case 'new_title':
             editDom.changeTitle(message)
