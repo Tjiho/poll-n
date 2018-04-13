@@ -2,20 +2,35 @@ console.log("load websocket script...")
 
 editDom = {}
 
-editDom.addAnswer = function(title,pk)
+editDom.addAnswer = function(title,pk,percentage,username,user_pk)
 {
     htmlAnswer =`
         <div id="answer`+pk+`">
-        <div class="line-answer">
-            <div class="remplissage" style="width: 0%"></div>
-            <div class="content"><input type="checkbox" value="`+pk+`" id='answer`+pk+`radio' onclick="clickRadioAnswer(this)"><label for='answer`+pk+`radio' class="radio"></label>`+ title +`</div>`
+            <div class="line-answer">
+                <div class="remplissage" id="remplissage-${pk}" style="width: `+percentage+`%"></div>
+                <div class="content"><input type="checkbox" value="`+pk+`" id='answer`+pk+`radio' onclick="clickRadioAnswer(this)" checked><label for='answer`+pk+`radio' class="radio"></label>`+ title +`</div>`
             
-            if(is_admin)
-                htmlAnswer += `<img src="/static/webApp/imgs/garbage.svg" class="delete" onclick="clickDeleteAnswer(`+pk+`)"/>`
+    if(is_admin)
+        htmlAnswer += `<img src="/static/webApp/imgs/garbage.svg" class="delete" onclick="clickDeleteAnswer(`+pk+`)"/>`
         
-        htmlAnswer += `
-        </div>
-        <div class="list-users"></div>
+    htmlAnswer += `
+            </div>
+            <div class="list-users">
+                <span class="list-login-user">`
+
+    if(is_login)
+        htmlAnswer += `<span class="user" id="user-login-`+ user_pk +`-`+ pk +`">`+ username +`</span>`
+                
+    htmlAnswer +=`
+                </span>
+                <span class="list-anonymous-user">`
+
+    if(!is_login)
+        htmlAnswer += `<span class="user" id="user-anonymous-`+ user_pk +`-`+ pk +`">`+ username +`</span>`
+
+    htmlAnswer +=`
+                </span>
+            </div>
         </div>`
     document.querySelector('#list-answer').innerHTML += htmlAnswer
 }
@@ -122,7 +137,6 @@ editDom.addUserAnonymOnAnswer = function(username,answer,user_pk,state)
 
     if(user_dom && !state && answer_dom)//delete user
     {
-        console.log("plop")
         user_dom.parentNode.removeChild(user_dom);
     }
     else if(!user_dom && state && answer_dom)//add user
@@ -156,7 +170,7 @@ answerSocket.onmessage = function(e)
 
     switch(data_type) {
         case 'new_answer':
-            editDom.addAnswer(message,data['pk'])
+            editDom.addAnswer(message,data['pk'],data['percentage'],data['username'],data['user_pk'])
         break;
         case 'new_title':
             editDom.changeTitle(message)

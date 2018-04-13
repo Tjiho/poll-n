@@ -13,6 +13,8 @@ The image named "draw.png" is the property of "Krystalia" : https://krysthalia.d
 install
 -------
 
+Before launching pip, you need to install `python3-devel` with your package manager
+
 Fedora / Arch-linux:
 ```
 pip install -r requirements.txt
@@ -28,16 +30,19 @@ It should work on windows, you need to install python 3 and pip for windows and 
 start
 -----
 
+
 Fedora / Arch-linux:
 ```
 cd polln
 python manage.py runserver
+docker run -p 6379:6379 -d redis:2.8
 ```
 
 Debian / Open-suse leap
 ```
 cd polln
 python3 manage.py runserver
+docker run -p 6379:6379 -d redis:2.8
 ```
 
 Update css

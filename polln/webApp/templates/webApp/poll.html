@@ -102,7 +102,7 @@
                
         </aside>
     </div>
-    <script>var poll_token = "{{token}}"; var is_admin = ("{{admin}}" == "True") </script>
+    <script>var poll_token = "{{token}}"; var is_admin = ("{{admin}}" == "True"); var is_login = ("{{user.is_login}}" == "True") </script>
     <script src="/static/webApp/js/webSocket-poll.js"></script>
 </main>
 {% endblock %}

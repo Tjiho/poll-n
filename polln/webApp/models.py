@@ -17,6 +17,10 @@ class User(AbstractUser):
 class Anonym_user(models.Model):
     name = models.CharField(max_length=100)
     
+    @property
+    def username(self):
+        return self.name
+
     def is_login(self):
         return False
 
@@ -87,15 +91,17 @@ class Answer(models.Model):
         
         return user in list_user
 
-    def change_state_user(self,user_pk,is_login,new_state):
+    def change_state_user(self,user_pk,is_login,new_state,force=False):
         old_state = self.check_for_user(user_pk,is_login)
         if old_state != new_state:
             if is_login:
                 user = User.objects.get(pk=user_pk)
                 list_user = self.connected_users
-            else:
+            elif self.question.annonymous_can_answer or force:
                 user = Anonym_user.objects.get(pk=user_pk)
                 list_user = self.users
+            else:
+                return False
 
             if new_state:
                 list_user.add(user)

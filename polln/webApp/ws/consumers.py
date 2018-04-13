@@ -52,13 +52,13 @@ class PollAnswerConsumer(WebsocketConsumer):
         token = self.scope['url_route']['kwargs']['key']
         poll = getPoll(token)
         text_data_json = json.loads(text_data)
+        user = self.get_user(self.scope)
 
         if poll and  self.poll \
                 and poll['question'].token == self.poll['question'].token \
                 and 'type' in text_data_json:
-
             if text_data_json["type"] == "new_answer":
-                if (poll["admin"]   or get_user(self.scope).is_authenticated
+                if (poll["admin"]   or user.is_authenticated
                                     or poll["question"].annonymous_can_add_answer)\
                                     and 'message' in text_data_json:
 
@@ -70,13 +70,18 @@ class PollAnswerConsumer(WebsocketConsumer):
                             question = poll["question"]
                         )
 
+                        answer.change_state_user(user.pk, user.is_login(), True, poll["admin"])
+
                         # Send message to room group
                         async_to_sync(self.channel_layer.group_send)(
                             self.room_group_name,
                             {
                                 'type': 'new_answer',
                                 'message': message,
-                                'pk': answer.pk
+                                'pk': answer.pk,
+                                'username': str(user),
+                                'percentage': answer.percentage,
+                                'user_pk':user.pk
                             }
                         )
             elif text_data_json["type"] == "new_title":
@@ -102,18 +107,17 @@ class PollAnswerConsumer(WebsocketConsumer):
             elif text_data_json["type"] == "new_check_answer" :
                 if 'answer' in text_data_json \
                 and 'checked' in text_data_json:
-                    user = get_user(self.scope)
+
                     answer = Answer.objects.get(pk=text_data_json["answer"])
+                    if answer.change_state_user(user.pk, user.is_login(), text_data_json['checked'], poll["admin"]):
+                        self.send_Room_check_answer(
+                            user.username,
+                            user.is_login(),
+                            answer,
+                            user.pk,
+                            text_data_json['checked']
+                        )
 
-                    if user.is_authenticated:
-                        if answer.change_state_user(user.pk,True,text_data_json['checked']):
-                            self.send_Room_check_answer(user.username,True,answer,user.pk,text_data_json['checked'])
-
-                    elif self.scope["session"] and poll["question"].annonymous_can_answer:
-                        user_pk = self.scope["session"]["user_anonym"]
-                        anonym = Anonym_user.objects.get(pk=user_pk)
-                        if answer.change_state_user(anonym.pk,False,text_data_json['checked']):
-                            self.send_Room_check_answer(anonym.name,False,answer,anonym.pk,text_data_json['checked'])
             elif text_data_json["type"] == "new_option":
                  if poll["admin"] and 'message' in text_data_json and 'value' in text_data_json:
                     message = text_data_json['message']
@@ -136,7 +140,20 @@ class PollAnswerConsumer(WebsocketConsumer):
                         self.room_group_name,
                         text_data_json
                     )
-                        
+
+    def get_user(self,scope):
+        user = get_user(self.scope)
+        if user.is_authenticated:
+            print("--- plop ---")
+            return user
+        elif self.scope["session"] and self.scope["session"]["user_anonym"]:
+            user_pk = self.scope["session"]["user_anonym"]
+            anonym = Anonym_user.objects.get(pk=user_pk)
+            return anonym
+        else:
+            print("--- plaf ---")
+            return False
+
                         
     def send_Room_check_answer(self,username,is_login,answer,user_pk,state):
 
@@ -160,14 +177,12 @@ class PollAnswerConsumer(WebsocketConsumer):
                 
 
 
-    # Receive message from room group
+    # ------------------- Receive message from room group -------------------
+
+
     def new_answer(self, event):
         # Send message to WebSocket
-        self.send(text_data=json.dumps({
-            'message': event['message'],
-            'pk':   event['pk'],
-            'type': 'new_answer'
-        }))
+       self.send(text_data=json.dumps(event))
 
     def new_title(self,event):
         message = event['message']
