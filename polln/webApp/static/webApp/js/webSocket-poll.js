@@ -154,10 +154,25 @@ editDom.changeStat = function(number_accounts,number_vote,number_views)
     document.querySelector('#number-views').innerText = number_views
 }
 
-editDom.changePercentage = function(percentage,answer)
+editDom.changePercentage = function(percentage,answer,number_vote)
 {
+    old_number_vote = document.querySelector('#number-vote').innerText
     document.querySelector('#remplissage-'+answer).style.width=percentage+"%"
+
+    if(old_number_vote != number_vote)
+    {
+        remplissage_elements = document.getElementsByClassName('remplissage')
+        console.log(remplissage_elements)
+        for(element of remplissage_elements)
+        {
+            var old_percentage = element.style.width.slice(0, -1);
+            var new_percentage = (old_percentage * old_number_vote)/number_vote
+            element.style.width=new_percentage+"%"
+        }
+    }
+
 }
+
 var answerSocket = new WebSocket(
     'ws://' + window.location.host +
     '/ws/poll/'+poll_token+'/answer/');
@@ -179,7 +194,7 @@ answerSocket.onmessage = function(e)
             editDom.changeDescription(message)
         break;
         case 'new_check_answer':
-            editDom.changePercentage(data['percentage'],data['answer'])
+            editDom.changePercentage(data['percentage'],data['answer'],data['number_vote'])
             editDom.changeStat(data['number_accounts'],data['number_vote'],data['number_views'])
             if (data['is_login'])
                 editDom.addUserLoginOnAnswer(data['username'],data['answer'],data['user_pk'],data['state'])
