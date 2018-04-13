@@ -73,6 +73,8 @@ h1 {
 }
 #main-description {
   text-align: center;
+  color: #000;
+  text-decoration: none;
 }
 #main-description img {
   height: 120px;

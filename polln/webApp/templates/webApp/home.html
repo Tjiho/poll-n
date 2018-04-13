@@ -1,13 +1,7 @@
 {% extends 'webApp/layout.html' %}
 {% block content %}
 <main id="home-main">
-    <h1>Poll-n</h1>
-    <div id="main-description">
-        Create poll for everybody
-        <br/>
-        <img src="/static/webApp/imgs/logo-tmp.png"/>
-
-    </div> 
+    {% include 'webApp/include/header.html' %}
     <div class="center">
     <a href="/logout" class="button logout">Logout</a>
     </div>

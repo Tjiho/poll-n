@@ -3,13 +3,8 @@
 <main id="poll-main">
     <div id="error">You lost connection with the server, try to reload the page</div>
 
-    <h1>Poll-n</h1>
-    <div id="main-description">
-        Create poll for everybody
-        <br/>
-        <img src="/static/webApp/imgs/logo-tmp.png"/>
-
-    </div> 
+    {% include 'webApp/include/header.html' %}
+    
     {%if admin%}
     <div class="link">
         <div><label>Lien :</label> http://localhost:8000/poll/{{question.token}}/</div>

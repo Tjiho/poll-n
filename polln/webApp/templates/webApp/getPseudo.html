@@ -1,17 +1,11 @@
 {% extends 'webApp/layout.html' %}
 {% block content %}
 <main id="main-poll-pseudo">
-    <h1>Poll-n</h1>
-    <div id="main-description">
-        Create poll for everybody
-        <br/>
-        <img src="/static/webApp/imgs/logo-tmp.png"/>
-
-    </div> 
+    {% include 'webApp/include/header.html' %}
     <section>
         <form action="{{urlPost}}" method="POST">
             {% csrf_token %}
-            <label for="name">Write your username:</label>
+            <label for="name">Choose a username:</label>
             {{ form.name }}
             <div class="center">
                 <input type="submit" value="Let's go">
