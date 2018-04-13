@@ -152,7 +152,6 @@ editDom.changePercentage = function(percentage,answer,number_vote)
     if(old_number_vote != number_vote)
     {
         remplissage_elements = document.getElementsByClassName('remplissage')
-        console.log(remplissage_elements)
         for(element of remplissage_elements)
         {
             var old_percentage = element.style.width.slice(0, -1);
@@ -161,6 +160,23 @@ editDom.changePercentage = function(percentage,answer,number_vote)
         }
     }
 
+}
+
+editDom.changeOptionAnnonymousCanAnswer = function(value)
+{
+    document.querySelector('#option-annonymous-can-answer').checked = value
+    if(!is_login && !is_admin)
+    {
+        checkboxs = document.getElementsByClassName('option-checkbox')
+        for(element of checkboxs)
+        {
+            console.log(element)
+            if(value)
+                element.removeAttribute("disabled")
+            else
+                element.setAttribute("disabled",'disabled')
+        }
+    }
 }
 
 var answerSocket = new WebSocket(
@@ -195,7 +211,7 @@ answerSocket.onmessage = function(e)
             if (message == "annonymous_can_add_answer")
                 document.querySelector('#option-annonymous-can-add-answer').checked = data['value']
             else if(message == "annonymous_can_answer")
-                document.querySelector('#option-annonymous-can-answer').checked = data['value']
+                editDom.changeOptionAnnonymousCanAnswer(data['value'])
         break;
         case 'delete_answer':
             answer = document.querySelector('#answer'+data['answer'])

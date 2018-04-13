@@ -34,6 +34,11 @@
                                     {% if answer.1 %}
                                 checked
                                     {% endif %}
+
+                                    {% if not question.annonymous_can_answer and not admin %}
+                                disabled
+                                    {% endif %}
+                                class="option-checkbox"
                         >
                         <label for='answer{{answer.0.pk}}radio' class="radio"></label>{{answer.0.title}}
                     </div>
@@ -85,7 +90,7 @@
                     Anonymous users can add answer
                 </div>
                 <div class="line">
-                    <input type="checkbox" id="option-annonymous-can-answer" 
+                    <input type="checkbox" id="option-annonymous-can-answer"
                         {% if question.annonymous_can_answer %} checked="true" {%endif%}
                         {% if not admin %} disabled="disabled" {%endif%}
                     >

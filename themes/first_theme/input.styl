@@ -66,9 +66,15 @@ input[type=checkbox] + label
     vertical-align: middle;
     border-radius: 20px;
     margin-right 10px;
+    cursor pointer
 
 input[type=checkbox]:checked + label
     background-color white
+
+input[type=checkbox]:disabled + label
+    background-color lightgrey
+    border-color lightgrey 
+    cursor not-allowed
 
 input[type=checkbox] + label.option
     border-color black
