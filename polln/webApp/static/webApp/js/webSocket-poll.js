@@ -179,9 +179,7 @@ editDom.changeOptionAnnonymousCanAnswer = function(value)
     }
 }
 
-var answerSocket = new WebSocket(
-    'ws://' + window.location.host +
-    '/ws/poll/'+poll_token+'/answer/');
+var answerSocket = new WebSocket(url_ws);
 
 answerSocket.onmessage = function(e) 
 {

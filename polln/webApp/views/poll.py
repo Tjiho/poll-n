@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from webApp.forms import PseudoForm
 from webApp.models import Question,Anonym_user,Answer,User
 from django.http import HttpResponseRedirect
+from django.conf import settings
 import binascii
 import os
 
@@ -85,7 +86,7 @@ class Poll(View):
         list_answer = Answer.objects.filter(question=question)
         list_answer_checked = list(map(user.answer_checked,list_answer))
         list_answer_zip = zip(list_answer,list_answer_checked)
-
+        main_url = settings.MAIN_URL
         return render(request, self.html, locals())
 
         

@@ -4,11 +4,11 @@
     <div id="error">You lost connection with the server, try to reload the page</div>
 
     {% include 'webApp/include/header.html' %}
-    
+
     {%if admin%}
     <div class="link">
-        <div><label>Lien :</label> http://localhost:8000/poll/{{question.token}}/</div>
-        <div><label >Lien admin:</label> http://localhost:8000/poll/{{question.token_admin}}/</div>
+        <div><label>Lien :</label> {{main_url}}/poll/{{question.token}}/</div>
+        <div><label >Lien admin:</label> {{main_url}}/poll/{{question.token_admin}}/</div>
     </div>
     {%endif%}
     <div id="content-scretch">
@@ -108,6 +108,7 @@
             var is_login = ("{{user.is_login}}" == "True") 
             var my_username = "{{user}}"
     </script>
+    <script src="/static/webApp/js/config.js"></script>
     <script src="/static/webApp/js/webSocket-poll.js"></script>
 </main>
 {% endblock %}
