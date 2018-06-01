@@ -25,7 +25,7 @@
                         <input  type="checkbox" 
                                 value="{{answer.0.pk}}" 
                                 id='answer{{answer.0.pk}}radio' 
-                                onclick="clickRadioAnswer(this)"
+                                onclick="UserAction.clickRadioAnswer(this)"
                                     {% if answer.1 %}
                                 checked
                                     {% endif %}
@@ -38,7 +38,7 @@
                         <label for='answer{{answer.0.pk}}radio' class="radio"></label>{{answer.0.title}}
                     </div>
                     {%if admin%}
-                    <img src="/static/webApp/imgs/garbage.svg" class="delete" onclick="clickDeleteAnswer({{answer.0.pk}})"/>
+                    <img src="/static/webApp/imgs/garbage.svg" class="delete" onclick="UserAction.clickDeleteAnswer({{answer.0.pk}})"/>
                     {%endif%}
                 </div>
                 <div class="list-users">
@@ -109,6 +109,8 @@
             var my_username = "{{user}}"
     </script>
     <script src="/static/webApp/js/config.js"></script>
+    <script src="/static/webApp/js/editDom-poll.js"></script>
     <script src="/static/webApp/js/webSocket-poll.js"></script>
+    <script src="/static/webApp/js/userAction-poll.js"></script>
 </main>
 {% endblock %}
