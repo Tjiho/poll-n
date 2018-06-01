@@ -40,19 +40,17 @@ editDom.addUserLoginOnAnswer = function(username,answer,user_pk,state)
 {
     userDom = document.querySelector('#user-login-'+user_pk+"-"+answer);
     answer_dom = document.querySelector('#list-login-user-'+answer);
-    check_dom = document.querySelector('#answer'+answer+'radio');
-    if(userDom && !state && answer_dom)//delete user
+    //check_dom = document.querySelector('#answer'+answer+'radio');
+    if(userDom && !state && answer_dom)//if user exists and need to delete it then delete user
     {
         userDom.parentNode.removeChild(userDom);
         check_dom.checked = false
     }
-    else if(!userDom && state && answer_dom)//add user
+    else if(!userDom && state && answer_dom)//else if user does not exist and need to add user then add user
     {
         answer_dom.innerHTML += `
             <span class="user" id="user-login-`+ user_pk +`-`+ answer +`">`+ username +`</span>
         `
-
-        check_dom.checked = true
     }
 }
 
@@ -61,11 +59,11 @@ editDom.addUserAnonymOnAnswer = function(username,answer,user_pk,state)
     user_dom = document.querySelector('#user-anonymous-'+user_pk+"-"+answer);
     answer_dom = document.querySelector('#list-anonymous-user-'+answer);
 
-    if(user_dom && !state && answer_dom)//delete user
+    if(user_dom && !state && answer_dom)//if user exists and need to delete it then delete user
     {
         user_dom.parentNode.removeChild(user_dom);
     }
-    else if(!user_dom && state && answer_dom)//add user
+    else if(!user_dom && state && answer_dom)//else if user does not exist and need to add user then add user
     {
         answer_dom.innerHTML += `
             <span class="user" id="user-anonymous-`+ user_pk +`-`+ answer +`">`+ username +`</span>
@@ -85,6 +83,8 @@ editDom.changePercentage = function(percentage,answer,number_vote)
     old_number_vote = document.querySelector('#number-vote').innerText
     document.querySelector('#remplissage-'+answer).style.width=percentage+"%"
 
+    //if a new people answer to his first question or a poeple delete his answer from his first question
+    // then we update all response to change the percentage 
     if(old_number_vote != number_vote)
     {
         remplissage_elements = document.getElementsByClassName('remplissage')
@@ -114,3 +114,17 @@ editDom.changeOptionAnnonymousCanAnswer = function(value)
         }
     }
 }
+
+editDom.changeOptionAnnonymousCanAddAnswer = function(value)
+{
+    document.querySelector('#option-annonymous-can-add-answer').checked = value
+    if(!is_login && !is_admin)
+    {
+        element = document.getElementById("answer-input")
+        if(value)
+            element.removeAttribute("disabled")
+        else
+            element.setAttribute("disabled",'disabled')
+    }
+}
+

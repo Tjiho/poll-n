@@ -137,10 +137,13 @@ UserAction.clickRadioAnswer = function(element)
 
 UserAction.clickDeleteAnswer = function(value)
 {
-    answerSocket.send(JSON.stringify({
-        'type': 'delete_answer',
-        'answer': value,
-    }));
+    if(is_admin)
+    {
+        answerSocket.send(JSON.stringify({
+            'type': 'delete_answer',
+            'answer': value,
+        }));
+    }   
 }
 
 UserAction.editTitle = function()

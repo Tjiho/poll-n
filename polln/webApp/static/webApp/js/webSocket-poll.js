@@ -28,7 +28,7 @@ answerSocket.onmessage = function(e)
         break;
         case 'new_option':
             if (message == "annonymous_can_add_answer")
-                document.querySelector('#option-annonymous-can-add-answer').checked = data['value']
+            editDom.changeOptionAnnonymousCanAddAnswer(data['value'])
             else if(message == "annonymous_can_answer")
                 editDom.changeOptionAnnonymousCanAnswer(data['value'])
         break;
@@ -36,8 +36,6 @@ answerSocket.onmessage = function(e)
             answer = document.querySelector('#answer'+data['answer'])
             answer.parentNode.removeChild(answer);
         break;
-
-
     }
 };
 
